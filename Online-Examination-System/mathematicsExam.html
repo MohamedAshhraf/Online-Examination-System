@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <title>Mathematics</title>
+    <style>
+        div {
+            background-color: #cb574a;
+            text-align: center;
+            margin-top: 90px;
+        }
+
+        button {
+            background-color: black;
+            border: 2px solid white;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+
+            button:hover {
+                background-color: #cb574a;
+                color: black;
+            }
+    </style>
+
+    <script>
+        var pos = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0, counter = 0;
+        var r = Math.floor(1 + Math.random() * 20);
+        var r1 = Math.floor(1 + Math.random() * 20);
+        var r2 = Math.floor(1 + Math.random() * 20);
+        var r3 = Math.floor(1 + Math.random() * 20);
+        var r4 = Math.floor(1 + Math.random() * 20);
+        var z = Math.floor(1 + Math.random() * 20);
+        var z1 = Math.floor(1 + Math.random() * 20);
+        var z2 = Math.floor(1 + Math.random() * 20);
+        var z3 = Math.floor(1 + Math.random() * 20);
+        var z4 = Math.floor(1 + Math.random() * 20);
+        var tot1 = r + z;
+        var tot2 = r1 - z1;
+        var tot3 = r2 * z2;
+        var tot4 = r3 / z3;
+        var tot5 = (r4 * z4) + r;
+        var questions = [
+            ["What is " + r + " + " + z + " ?", "12", tot1, "16", "B"],
+            ["What is " + r1 + " - " + z1 + " ?", "7", "60", tot2, "C"],
+            ["What is " + r2 + " x " + z2 + " ?", tot3, "24", "25", "A"],
+            ["What is " + r3 + " / " + z3 + " ?", "10", "2", tot4, "C"],
+            ["What is ( " + r4 + " x " + z4 + " ) " + " + " + r + " ?", "10", tot5, "4", "B"]
+
+        ];
+
+        function renderQuestion() {
+            test = document.getElementById("test");
+            if (counter >= 5) {
+                test.innerHTML = "<h1>You got " + correct + " out of " + questions.length + " questions</h1>";
+                document.getElementById("result").innerHTML = correct;
+                document.getElementById("test_status").innerHTML = "<h1>Test Completed</h1>";
+                test.innerHTML += "<h3>Exam Finished in Time:" + sec + " Seconds</h3>";
+
+                pos = 0;
+                counter = 0;
+                correct = 0;
+                clearTimeout(tim);
+                window.location.href = "new.html";
+                document.getElementById("starttime").style.display += 'none';
+                document.getElementById("showtime").style.display += 'none';
+                return false;
+            }
+            document.getElementById("test_status").innerHTML = "Question " + (counter + 1) + " of " + questions.length;
+            question = questions[pos][0];
+            chA = questions[pos][1];
+            chB = questions[pos][2];
+            chC = questions[pos][3];
+
+            test.innerHTML = "<h1>" + question + "</h1>";
+            test.innerHTML += "<h2><input type='radio' name='choices' value='A'>" + chA + "</h2>";
+            test.innerHTML += "<h2><input type='radio' name='choices' value='B'>" + chB + "</h2>";
+            test.innerHTML += "<h2><input type='radio' name='choices' value='C'>" + chC + "</h2>";
+
+            test.innerHTML += "<button onclick='checkAnswer()'>Next</button>";
+        }
+        function checkAnswer() {
+            choices = document.getElementsByName("choices");
+            for (var i = 0; i < choices.length; i++) {
+                if (choices[i].checked) {
+                    choice = choices[i].value;
+                }
+            }
+            if (choice == questions[pos][4]) {
+                correct++;
+            }
+
+            pos++
+            counter++;
+            renderQuestion();
+        }
+        var tim;
+        var showscore = Math.round(correct / questions.length * 100);
+        var min = 1;
+        var sec = 60;
+        var f = new Date();
+        function starttime() {
+            showtime();
+            document.getElementById("starttime").innerHTML = "<h3>You started your Exam at " + f.getHours() + ":" + f.getMinutes() + "</h3>";
+        }
+        function showtime() {
+            if (parseInt(sec) > 0) {
+                sec = parseInt(sec) - 1;
+                document.getElementById("showtime").innerHTML = "Your Left Time is :" + min + " Minutes :" + sec + " Seconds";
+                tim = setTimeout("showtime()", 1000);
+            }
+            else {
+                if (parseInt(sec) == 0) {
+                    min = parseInt(min) - 1;
+                    document.getElementById("showtime").innerHTML = "Your Left Time is :" + min + " Minutes :" + sec + " Seconds";
+                    if (parseInt(min) == 0) {
+                        clearTimeout(tim);
+                        alert("Time Up");
+                        window.location.href = "new.html";
+
+                    }
+                    else {
+                        sec = 60;
+                        document.getElementById("showtime").innerHTML = "Your Left Time is :" + min + " Minutes :" + sec + " Seconds";
+                        tim = setTimeout("showtime()", 1000);
+                    }
+                }
+
+            }
+        }
+        window.addEventListener("load", renderQuestion, false);
+    </script>
+</head>
+<body class="background1" onload="starttime()">
+    <div>
+
+        <h2 id="test_status"></h2>
+        <div id="test"></div>
+        <div id="showtime"></div>
+    </div>
+</body>
+</html>

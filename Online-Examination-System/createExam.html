@@ -1,0 +1,54 @@
+﻿<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title>Create Exam</title>
+    <script>
+
+
+        function AddQuestion2() {
+
+
+            document.getElementById("submit1").value = "";
+
+            document.getElementById("answer1").value = "";
+
+
+
+            document.getElementById("answer2").value = "";
+
+
+            document.getElementById("answer3").value = "";
+
+
+            document.getElementById("answer4").value = "";
+
+        }
+
+
+
+
+    </script>
+</head>
+<body class="theme">
+    <nav></nav>
+    <section>
+        <form method="post" action="signin.aspx">
+            <input type="submit" class="button" value="Logout">
+        </form>
+        <center>
+            <h1>Enter the questions:</h1>
+<textarea required placeholder="Enter Question" id="submit1" rows="5" cols="70"></textarea>
+
+            <p><h1>Enter the answers:</h1></p>
+            <input type="text" required placeholder="Enter answer1" name="Anser1" id="answer1"><br /><br />
+            <input type="text" required placeholder="Enter answer2" name="Anser2" id="answer2"><br /><br />
+            <input type="text" required placeholder="Enter answer3" name="Anser3" id="answer3"><br /><br />
+            <input type="text" required placeholder="Enter Answer4" name="Anser4" id="answer4"><br /><br />
+            <input type="button" class="button" value="Submit" onclick="AddQuestion2()">
+
+
+        </center>
+    </section>
+    <footer></footer>
+</body>
+</html>
